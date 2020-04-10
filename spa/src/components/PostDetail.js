@@ -2,10 +2,12 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { fetchPost, updatePost, deletePost, deleteComment } from '../actions/postActions'
 import { withRouter } from 'react-router-dom'
+import  moment  from 'moment'
 class PostDetail extends Component {
 
     state = {
-        comment: ''
+        comment: '',
+        commentForm: 'create'
     }
     constructor(props) {
         super(props)
@@ -22,13 +24,13 @@ class PostDetail extends Component {
     }
     focusOnComment = () => {
         this.commentInput.current.focus()
+        this.setState({
+            commentForm: 'create',
+            comment: ''
+        })
     }
 
     handleInputChange = ({ target: { name, value }}) => this.setState({[name]: value})
-
-    isCommentInputValid = e => {
-        console.log(this.commentInput.current)
-    }
 
     handleDeletePost = () => {
         if (window.confirm('Are you sure you want to delete this post ?')) {
@@ -37,8 +39,12 @@ class PostDetail extends Component {
         }
     }
 
-    handleEditComment(commentId) {
-
+    handleEditComment(comment) {
+        
+        this.setState({
+            commentForm: 'edit',
+            comment: comment.body
+        })
     }
 
     handleDeleteComment(commentId) {
@@ -48,14 +54,23 @@ class PostDetail extends Component {
         }
     }
 
+    handleAddComment = () => {
+        const { comment, commentForm } = this.state
+        if (commentForm === 'create') {
+
+        } else {
+
+        }
+    }
+
 
     render() {
         const { post, history } = this.props
-        const { comment } = this.state
+        const { comment, commentForm } = this.state
         return (
             <div className='post-detail' style={{ paddingTop: '3rem' }}>
                 <h3 className='ml-3'> {post.title} </h3>
-                <p className='ml-3'> Posted on {post.timestamp} in {post.category} </p>
+                <p className='ml-3'> Posted on { moment.unix(post.timestamp).format('MMMM Do YYYY, h:mm:ss a')} in {post.category} </p>
                 <div className='col-lg-8'>
                     <div className='card' >
                         <div className='card-body'>
@@ -78,6 +93,7 @@ class PostDetail extends Component {
                                     <span>Comment</span>
                                 </div>
                             </div>
+                            <div className='mt-3'> { post.comments && post.comments.length } comments to display </div>
                             <div className='comments-list'>
                                 {
                                     post.comments && (post.comments.map((comment) => (
@@ -85,7 +101,7 @@ class PostDetail extends Component {
                                             <div className='card-body'>
         
                                                 <div className='d-flex justify-content-end'>
-                                                    <i className='fa fa-pencil text-primary mr-2' onClick={() => this.handleEditComment(comment.id)}></i>
+                                                    <i className='fa fa-pencil text-primary pointer mr-2' onClick={() => this.handleEditComment(comment)}></i>
                                                     <i className='fa fa-times text-danger pointer' onClick={() =>this.handleDeleteComment(comment.id)}></i>
                                                 </div>
                                                 <span className='text-primary'> {comment.author}</span>
@@ -97,9 +113,9 @@ class PostDetail extends Component {
                             </div>
                             <div className='form-group mt-3 d-flex justify-content-between'>
                                 <input type='text' className='form-control mr-1' name='comment' ref={this.commentInput} onChange={this.handleInputChange} value={comment} placeholder='Write a comment' />
-                                <button disabled={!comment || comment.trim().length === 0} className='btn btn-danger btn-md d-flex align-items-center justify-content-center'>
+                                <button disabled={!comment || comment.trim().length === 0} className='btn btn-danger btn-md d-flex align-items-center justify-content-center' onClick={this.handleAddComment}>
                                     <i className='fa fa-paper-plane mr-2'></i>
-                                    <span>Send</span>
+                                    <span> { commentForm === 'create' ? 'Send': 'Edit'} </span>
                                 </button>
                             </div>
                         </div>
