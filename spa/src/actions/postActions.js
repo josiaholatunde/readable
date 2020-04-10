@@ -8,8 +8,11 @@ export const fetchPosts = () => async dispatch => {
     try {
         dispatch(showLoading())
         setTimeout(async () => {
-            const { data: { posts } } = await axios.get('/posts');
-            
+            const { data: posts } = await axios.get('/posts');
+            const modifiedPosts = {}
+            posts.forEach(post => {
+                modifiedPosts[post.id] = post
+            })
             dispatch(receivePosts(posts))
             dispatch(hideLoading())
         }, 2000)

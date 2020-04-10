@@ -4,7 +4,7 @@ const Post = ({ post }) => {
     return (
         <Fragment>
             <div className='col-lg-3'>
-                <div className='card'>
+                <div className='card bg-primary text-white' style={{height: '14rem'}}>
                     <div className='card-body'>
                         <h5>
                             {post.title}
