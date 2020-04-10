@@ -1,0 +1,20 @@
+
+.sidebar {
+  background-color: #f6f7f9;
+}
+
+.sidebar li {
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.sidebar li a {
+  color: #333 !important;
+  text-decoration: none !important;
+}
+
+.sidebar li i {
+  font-size: 1.5rem;
+  padding: .3rem;
+}
