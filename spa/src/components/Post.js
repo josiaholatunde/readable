@@ -1,9 +1,10 @@
 import React, { Fragment } from 'react'
+import { withRouter } from 'react-router-dom'
 
-const Post = ({ post }) => {
+const Post = ({ post, history }) => {
     return (
         <Fragment>
-            <div className='col-lg-3'>
+            <div className='col-lg-3 pointer' onClick={() => history.push(`/posts/${post.id}`)}>
                 <div className='card bg-primary text-white' style={{height: '14rem'}}>
                     <div className='card-body'>
                         <h5>
@@ -22,4 +23,4 @@ const Post = ({ post }) => {
     )
 }
 
-export default Post
+export default withRouter(Post)

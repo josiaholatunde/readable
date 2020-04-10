@@ -1,11 +1,24 @@
-import { RECEIVE_CATEGORIES } from "../actions/category";
+import { RECEIVE_CATEGORIES, RECEIVE_CATEGORY_POSTS } from "../actions/category";
 
-export default function (state={}, action) {
+const initialState = {
+    categories: {},
+    category: {}
+}
+export default function (state=initialState, action) {
     switch (action.type) {
         case RECEIVE_CATEGORIES:
             return {
                 ...state,
-                ...action.categories
+                categories: {
+                    ...action.categories
+                }
+            }
+        case RECEIVE_CATEGORY_POSTS:
+            return {
+                ...state,
+                category: {
+                  posts:  action.posts
+                }
             }
         default:
             return state

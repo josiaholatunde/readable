@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { MDBDataTable } from 'mdbreact'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { fetchCategories } from '../../actions/category';
@@ -71,7 +70,7 @@ export class Dashboard extends Component {
                     <div className='row mt-3'>
                         {
                             posts.map(post => (
-                                <Post post={post} key={post.id} />
+                                <Post post={post} key={post.id}  />
                             ))
                         }
                     </div>
@@ -83,7 +82,7 @@ export class Dashboard extends Component {
     }
 }
 
-const mapStateToProps = ({ categories, posts }) => ({
+const mapStateToProps = ({ categories: { categories}, posts: { posts } }) => ({
     categories: Object.values(categories),
     posts: Object.values(posts)
 })

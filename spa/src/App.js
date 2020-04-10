@@ -5,6 +5,8 @@ import Navbar from './components/layout/Navbar';
 import { Switch, Route, BrowserRouter as Router } from 'react-router-dom'
 import Dashboard from './components/layout/Dashboard';
 import SideBar from './components/layout/SideBar';
+import CategoryDetail from './components/CategoryDetail';
+import PostDetail from './components/PostDetail';
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
           <div className='col-lg-8'>
             <Switch>
               <Route exact path='/' component={Dashboard} />
+              <Route exact path='/categories/:id' component={CategoryDetail} />
+              <Route exact path='/posts/:id' component={PostDetail} />
             </Switch>
           </div>
         </div>
