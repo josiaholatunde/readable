@@ -1,4 +1,4 @@
-import { RECEIVE_POSTS, RECEIVE_POST, RECEIVE_POST_COMMENTS } from "../actions/postActions";
+import { RECEIVE_POSTS, RECEIVE_POST, RECEIVE_POST_COMMENTS, ADD_POST } from "../actions/postActions";
 
 const initialState = {
     posts: {},
@@ -24,6 +24,10 @@ export default function (state=initialState, action) {
                 comments: action.comments
             }
         }
+        case ADD_POST:
+            return {
+                ...state
+            }
         default:
             return state
     }
